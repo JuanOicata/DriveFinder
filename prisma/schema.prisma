@@ -1,0 +1,71 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  name      String
+  email     String   @unique
+  password  String
+  role      Role     @default(BUYER)
+  phone     String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  vehicles      Vehicle[]
+  notifications Notification[]
+}
+
+enum Role {
+  BUYER
+  SELLER
+  ADMIN
+}
+
+model Vehicle {
+  id          String        @id @default(cuid())
+  brand       String
+  model       String
+  year        Int
+  price       Float
+  mileage     Int
+  description String
+  status      VehicleStatus @default(AVAILABLE)
+  images      String[]
+  sellerId    String
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+
+  seller        User           @relation(fields: [sellerId], references: [id])
+  notifications Notification[]
+}
+
+enum VehicleStatus {
+  AVAILABLE
+  SOLD
+  RESERVED
+}
+
+model Notification {
+  id        String           @id @default(cuid())
+  type      NotificationType
+  message   String
+  read      Boolean          @default(false)
+  userId    String
+  vehicleId String?
+  createdAt DateTime         @default(now())
+
+  user    User     @relation(fields: [userId], references: [id])
+  vehicle Vehicle? @relation(fields: [vehicleId], references: [id])
+}
+
+enum NotificationType {
+  PURCHASE_CONFIRMED
+  VEHICLE_PUBLISHED
+  GENERAL
+}
