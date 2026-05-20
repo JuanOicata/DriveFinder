@@ -1,13 +1,11 @@
 'use client'
 
 import { useState } from 'react'
-import { useRouter } from 'next/navigation'
 import { useAuth } from '@/context/AuthContext'
 import Link from 'next/link'
 
 export default function RegisterPage() {
     const { register } = useAuth()
-    const router = useRouter()
     const [form, setForm] = useState({ name: '', email: '', password: '', role: 'BUYER' })
     const [error, setError] = useState('')
     const [loading, setLoading] = useState(false)
@@ -16,13 +14,19 @@ export default function RegisterPage() {
         e.preventDefault()
         setLoading(true)
         setError('')
-        const res = await register(form)
-        if (res.error) {
-            setError(res.error)
-        } else {
-            router.push('/')
+
+        try {
+            const res = await register(form)
+            if (res.error) {
+                setError(res.error)
+                setLoading(false)
+                return
+            }
+            window.location.href = '/'
+        } catch {
+            setError('Error inesperado, intenta de nuevo')
+            setLoading(false)
         }
-        setLoading(false)
     }
 
     return (
@@ -31,9 +35,7 @@ export default function RegisterPage() {
                 <h1 className="text-2xl font-bold text-gray-800 mb-6">Crear cuenta</h1>
 
                 {error && (
-                    <div className="bg-red-50 text-red-600 p-3 rounded-lg mb-4 text-sm">
-                        {error}
-                    </div>
+                    <div className="bg-red-50 text-red-600 p-3 rounded-lg mb-4 text-sm">{error}</div>
                 )}
 
                 <form onSubmit={handleSubmit} className="space-y-4">
@@ -47,7 +49,6 @@ export default function RegisterPage() {
                             required
                         />
                     </div>
-
                     <div>
                         <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
                         <input
@@ -58,7 +59,6 @@ export default function RegisterPage() {
                             required
                         />
                     </div>
-
                     <div>
                         <label className="block text-sm font-medium text-gray-700 mb-1">Contraseña</label>
                         <input
@@ -69,7 +69,6 @@ export default function RegisterPage() {
                             required
                         />
                     </div>
-
                     <div>
                         <label className="block text-sm font-medium text-gray-700 mb-1">Tipo de cuenta</label>
                         <select
@@ -81,7 +80,6 @@ export default function RegisterPage() {
                             <option value="SELLER">Vendedor</option>
                         </select>
                     </div>
-
                     <button
                         type="submit"
                         disabled={loading}

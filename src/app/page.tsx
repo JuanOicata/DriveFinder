@@ -18,7 +18,7 @@ export default function HomePage() {
                             Ver vehículos
                         </Link>
                         <Link
-                            href="/register"
+                            href="/dashboard/seller/vehicles/new"
                             className="border border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700"
                         >
                             Publicar vehículo

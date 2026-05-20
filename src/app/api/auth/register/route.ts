@@ -33,6 +33,8 @@ export async function POST(req: NextRequest) {
         }, { status: 201 })
 
     } catch (error) {
+        console.error('ERROR REGISTRO:', error)
         return NextResponse.json({ error: 'Error al registrar usuario' }, { status: 500 })
     }
+
 }

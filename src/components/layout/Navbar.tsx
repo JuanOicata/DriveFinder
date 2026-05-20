@@ -28,7 +28,7 @@ export default function Navbar() {
                     {user ? (
                         <>
                             {user.role === 'SELLER' && (
-                                <Link href="/dashboard/seller/vehicles" className="text-gray-600 hover:text-blue-600 text-sm font-medium">
+                                <Link href="/seller/vehicles" className="text-gray-600 hover:text-blue-600 text-sm font-medium">
                                     Mis vehículos
                                 </Link>
                             )}
