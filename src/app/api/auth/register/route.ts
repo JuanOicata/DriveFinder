@@ -8,12 +8,13 @@ const registerSchema = z.object({
     email: z.string().email(),
     password: z.string().min(6),
     role: z.enum(['BUYER', 'SELLER']).default('BUYER'),
+    phone: z.string().optional(),
 })
 
 export async function POST(req: NextRequest) {
     try {
         const body = await req.json()
-        const { name, email, password, role } = registerSchema.parse(body)
+        const { name, email, password, role, phone } = registerSchema.parse(body)
 
         const existing = await prisma.user.findUnique({ where: { email } })
         if (existing) {
@@ -22,7 +23,7 @@ export async function POST(req: NextRequest) {
 
         const hashed = await hashPassword(password)
         const user = await prisma.user.create({
-            data: { name, email, password: hashed, role },
+            data: { name, email, password: hashed, role, phone },
         })
 
         const token = generateToken({ id: user.id, email: user.email, role: user.role })

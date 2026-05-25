@@ -46,9 +46,12 @@ export default function VehiclesPage() {
             <h1 className="text-3xl font-bold text-gray-800 mb-8">Vehículos disponibles</h1>
 
             {/* Búsqueda IA */}
-            <div className="bg-gradient-to-r from-blue-600 to-blue-700 p-6 rounded-xl mb-6 text-white">
-                <h2 className="font-semibold text-lg mb-1">🤖 Búsqueda inteligente</h2>
-                <p className="text-blue-100 text-sm mb-3">Describe lo que buscas en lenguaje natural</p>
+            <div className="bg-gray-900 p-6 rounded-2xl mb-6">
+                <div className="flex items-center gap-2 mb-1">
+                    <span className="text-lg">🤖</span>
+                    <h2 className="font-semibold text-white text-lg">Búsqueda inteligente</h2>
+                </div>
+                <p className="text-gray-400 text-sm mb-4">Describe lo que buscas en lenguaje natural</p>
                 <div className="flex gap-2">
                     <input
                         type="text"
@@ -56,12 +59,12 @@ export default function VehiclesPage() {
                         onChange={e => setAiQuery(e.target.value)}
                         onKeyDown={e => e.key === 'Enter' && handleAiSearch()}
                         placeholder='Ej: "carro económico para ciudad" o "SUV familiar bajo presupuesto"'
-                        className="flex-1 px-4 py-2 rounded-lg text-gray-800 focus:outline-none"
+                        className="flex-1 px-4 py-3 rounded-xl bg-gray-800 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 border border-gray-700"
                     />
                     <button
                         onClick={handleAiSearch}
                         disabled={aiLoading}
-                        className="bg-white text-blue-600 px-6 py-2 rounded-lg font-semibold hover:bg-blue-50 disabled:opacity-50"
+                        className="bg-blue-600 text-white px-6 py-3 rounded-xl font-semibold hover:bg-blue-700 disabled:opacity-50 transition-colors"
                     >
                         {aiLoading ? 'Buscando...' : 'Buscar'}
                     </button>
@@ -69,9 +72,9 @@ export default function VehiclesPage() {
                 {isAiSearch && (
                     <button
                         onClick={loadVehicles}
-                        className="mt-2 text-blue-200 text-sm underline hover:text-white"
+                        className="mt-3 text-gray-400 text-sm hover:text-white transition-colors"
                     >
-                        Limpiar y ver todos
+                        ← Ver todos los vehículos
                     </button>
                 )}
             </div>

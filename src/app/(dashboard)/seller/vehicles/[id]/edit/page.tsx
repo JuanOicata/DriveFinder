@@ -35,7 +35,7 @@ export default function EditVehiclePage() {
             <h1 className="text-2xl font-bold text-gray-800 mb-6">Editar vehículo</h1>
             {error && <div className="bg-red-50 text-red-600 p-3 rounded-lg mb-4 text-sm">{error}</div>}
             <div className="bg-white p-6 rounded-xl shadow-sm">
-                <VehicleForm initial={vehicle} onSubmit={handleSubmit} loading={loading} />
+                <VehicleForm initial={vehicle} onSubmit={handleSubmit} loading={loading} token={token!} />
             </div>
         </main>
     )
