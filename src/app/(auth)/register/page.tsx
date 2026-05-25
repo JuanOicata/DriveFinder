@@ -6,9 +6,11 @@ import Link from 'next/link'
 
 export default function RegisterPage() {
     const { register } = useAuth()
-    const [form, setForm] = useState({ name: '', email: '', password: '', role: 'BUYER' })
+    const [form, setForm] = useState({ name: '', email: '', password: '', role: 'BUYER',  phone: ''})
     const [error, setError] = useState('')
     const [loading, setLoading] = useState(false)
+
+
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
@@ -27,6 +29,8 @@ export default function RegisterPage() {
             setError('Error inesperado, intenta de nuevo')
             setLoading(false)
         }
+
+
     }
 
     return (
@@ -44,7 +48,7 @@ export default function RegisterPage() {
                         <input
                             type="text"
                             value={form.name}
-                            onChange={e => setForm({ ...form, name: e.target.value })}
+                            onChange={e => setForm({...form, name: e.target.value})}
                             className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                             required
                         />
@@ -54,7 +58,7 @@ export default function RegisterPage() {
                         <input
                             type="email"
                             value={form.email}
-                            onChange={e => setForm({ ...form, email: e.target.value })}
+                            onChange={e => setForm({...form, email: e.target.value})}
                             className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                             required
                         />
@@ -64,16 +68,28 @@ export default function RegisterPage() {
                         <input
                             type="password"
                             value={form.password}
-                            onChange={e => setForm({ ...form, password: e.target.value })}
+                            onChange={e => setForm({...form, password: e.target.value})}
                             className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                             required
+                        />
+                    </div>
+                    <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">
+                            Teléfono <span className="text-gray-400 text-xs">(opcional)</span>
+                        </label>
+                        <input
+                            type="tel"
+                            value={form.phone}
+                            onChange={e => setForm({...form, phone: e.target.value})}
+                            className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            placeholder="Ej: 3001234567"
                         />
                     </div>
                     <div>
                         <label className="block text-sm font-medium text-gray-700 mb-1">Tipo de cuenta</label>
                         <select
                             value={form.role}
-                            onChange={e => setForm({ ...form, role: e.target.value })}
+                            onChange={e => setForm({...form, role: e.target.value})}
                             className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                         >
                             <option value="BUYER">Comprador</option>

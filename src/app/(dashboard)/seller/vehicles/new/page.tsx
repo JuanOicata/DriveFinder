@@ -54,7 +54,7 @@ export default function NewVehiclePage() {
                 <div className="bg-red-50 text-red-600 p-3 rounded-lg mb-4 text-sm">{error}</div>
             )}
             <div className="bg-white p-6 rounded-xl shadow-sm">
-                <VehicleForm onSubmit={handleSubmit} loading={loading} />
+                <VehicleForm onSubmit={handleSubmit} loading={loading} token={token!} />
             </div>
         </main>
     )
